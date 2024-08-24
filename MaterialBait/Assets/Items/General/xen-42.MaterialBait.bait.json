@@ -1,0 +1,16 @@
+﻿{
+  "itemNameKey": "xen-42.MaterialBait.bait.name",
+  "itemDescriptionKey": "xen-42.MaterialBait.bait.desc",
+  "sprite": "xen-42.MaterialBait.bait",
+  "itemColor": {
+    "r": 58,
+    "g": 40,
+    "b": 32,
+    "a": 255
+  },
+  "value": 100,
+  "dimensions": [
+    "XX"
+  ],
+  "damageMode": "DESTROY"
+}
