@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using Winch.Core.API.Events.Addressables;
 
 namespace MaterialBait;
 
@@ -20,18 +19,5 @@ public class MaterialBait
 #endif
 
         new Harmony("MaterialBait").PatchAll();
-    }
-
-    private static void OnItemsLoaded(object sender, AddressablesLoadedEventArgs<ItemData> e)
-    {
-        foreach (ItemData item in e.Handle.Result)
-        {
-            if (item is SpatialItemData spatialItem && spatialItem.id == "bait")
-            {
-                spatialItem.hasSellOverride = true;
-                spatialItem.sellOverrideValue = 10000000;
-                break;
-            }
-        }
     }
 }

@@ -25,7 +25,7 @@ public static class BaitAbilityPatches
     public static void PlayerAbilityManager_GetHasDependentItems(PlayerAbilityManager __instance, AbilityData ability)
     {
         // Things are readonly so have to do this rather poorly
-        if (ability.name == "bait")
+        if (ability?.name == "bait")
         {
             var materialBait = ItemUtil.GetModdedItemData(MaterialBait.MATERIAL_BAIT_ID) as SpatialItemData;
             if (!ability.linkedItems.Contains(materialBait))
@@ -39,7 +39,7 @@ public static class BaitAbilityPatches
     [HarmonyPatch(typeof(BaitAbility), nameof(BaitAbility.DeployBait))]
     public static bool BaitAbility_DeployBait(BaitAbility __instance, SpatialItemInstance baitInstance)
     {
-        if (baitInstance.id == MaterialBait.MATERIAL_BAIT_ID)
+        if (baitInstance?.id == MaterialBait.MATERIAL_BAIT_ID)
         {
             // Spawn our custom bait POI
             SpawnCustomBait(__instance, baitInstance);
@@ -56,7 +56,7 @@ public static class BaitAbilityPatches
     [HarmonyPatch(typeof(BaitAbility), nameof(BaitAbility.GetFishForBait))]
     public static bool BaitAbility_GetFishForBait(BaitAbility __instance, SpatialItemData spatialItemData, ref List<FishItemData> __result)
     {
-        if (spatialItemData.id == MaterialBait.MATERIAL_BAIT_ID)
+        if (spatialItemData?.id == MaterialBait.MATERIAL_BAIT_ID)
         {
             // Trick it into thinking there's fish
             __result = new List<FishItemData>() { new FishItemData() };
@@ -74,6 +74,7 @@ public static class BaitAbilityPatches
         BaitPOIDataModel baitPOIDataModel = new BaitPOIDataModel();
         SpatialItemData itemData = baitInstance.GetItemData<SpatialItemData>();
         baitPOIDataModel.doesRestock = false;
+        // Instead of fish, get dredgable items
         List<HarvestableItemData> list = ItemUtil.HarvestableItemDataDict.Values
             .Where(x => x.harvestableType == HarvestableType.DREDGE && (x.itemSubtype == ItemSubtype.TRINKET || x.itemSubtype == ItemSubtype.MATERIAL))
             .OrderBy(_ => Guid.NewGuid()).ToList();
@@ -97,10 +98,15 @@ public static class BaitAbilityPatches
         baitPOIDataModel.usesTimeSpecificStock = false;
         Vector3 position = new Vector3(GameManager.Instance.Player.BoatModelProxy.DeployPosition.position.x, 0f, GameManager.Instance.Player.BoatModelProxy.DeployPosition.position.z);
         GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(baitAbility.baitPOIPrefab, position, Quaternion.identity, GameSceneInitializer.Instance.HarvestPoiContainer.transform);
+
+        // Modify the gameobject to have dredging particles under the surface not fish
+        var prefab = GameObject.FindObjectsOfType<HarvestPOI>(true).First(x => x.name.Contains("scrap")).transform.Find("MetalScrapParticles(Clone)/Particles").gameObject;
+        
         gameObject.transform.eulerAngles = new Vector3(0f, GameManager.Instance.Player.BoatModelProxy.DeployPosition.eulerAngles.y, 0f);
         HarvestPOI component = gameObject.GetComponent<HarvestPOI>();
         if (component)
         {
+            component.harvestParticlePrefab = prefab;
             component.Harvestable = baitPOIDataModel;
             component.HarvestPOIData = baitPOIDataModel;
             Cullable component2 = component.GetComponent<Cullable>();
