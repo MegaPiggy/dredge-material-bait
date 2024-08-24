@@ -1,0 +1,9 @@
+{
+	"Author": "xen-42",
+	"Name": "Winch Mod Template",
+	"ModGUID": "xen-42.MaterialBait",
+	"Version": "0.0.1",
+	"ModAssembly": "MaterialBait.dll",
+	"MinWinchVersion": "0.4.0",
+	"Entrypoint": "MaterialBait.Loader/Initialize"
+}

@@ -11,8 +11,8 @@ on:
           type: boolean
 
 env:
-    PROJ_USERNAME: YourName
-    PROJ_NAME: WinchModTemplate
+    PROJ_USERNAME: xen-42
+    PROJ_NAME: MaterialBait
 
 permissions:
   contents: write
