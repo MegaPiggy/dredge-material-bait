@@ -107,16 +107,19 @@ public class MaterialBait
     private static void CreateRecipe()
     {
         BaitRecipeData = ScriptableObject.CreateInstance<ItemRecipeData>();
+        UnityEngine.Object.DontDestroyOnLoad(BaitRecipeData);
+
+        var questGridConfig = ScriptableObject.CreateInstance<QuestGridConfig>();
+        UnityEngine.Object.DontDestroyOnLoad(questGridConfig);
+
         BaitRecipeData.itemProduced = MaterialBaitItemData;
         BaitRecipeData.name = "Recipe_BaitMaterial";
         BaitRecipeData.onRecipeBuiltDialogueNodeName = "Factory_Item_Constructed";
         BaitRecipeData.onRecipeShownDialogueNodeName = "Factory_Item_RecipeShown";
         BaitRecipeData.quantityProduced = 1;
-
-        var questGridConfig = ScriptableObject.CreateInstance<QuestGridConfig>();
-        BaitRecipeData.questGridConfig = questGridConfig;
         BaitRecipeData.recipeId = "bait-mb-recipe";
         BaitRecipeData.cost = 40;
+        BaitRecipeData.questGridConfig = questGridConfig;
 
         // Quest Grid
         questGridConfig.name = "Item_BaitMaterial";
@@ -128,17 +131,10 @@ public class MaterialBait
             new ItemCountCondition() { item = _bait, count = 1 },
             new ItemCountCondition() { item = _darkSplash, count = 2 }
         };
+
         questGridConfig.createItemsIfEmpty = false;
-
-       // questGridConfig.exitPromptOverride = _crabBaitRecipeQuestGrid.exitPromptOverride;
-        //questGridConfig.helpStringOverride = _crabBaitRecipeQuestGrid.helpStringOverride;
-        //questGridConfig.titleString = _crabBaitRecipeQuestGrid.titleString;
-
-        var gridConfiguration = ScriptableObject.CreateInstance<GridConfiguration>();
-        questGridConfig.gridConfiguration = gridConfiguration;
         questGridConfig.presetGridMode = PresetGridMode.SILHOUETTE;
         questGridConfig.isSaved = true;
-
         questGridConfig.gridKey = EnumUtil.Create<GridKey>("BAIT_MATERIAL_RECIPE");
         questGridConfig.presetGrid = new SerializableGrid();
         questGridConfig.presetGrid.spatialItems = new List<SpatialItemInstance>
@@ -148,6 +144,14 @@ public class MaterialBait
             new SpatialItemInstance() { x = 1, y = 1, id = _darkSplash.id },
         };
 
+        //questGridConfig.exitPromptOverride = _crabBaitRecipeQuestGrid.exitPromptOverride;
+        //questGridConfig.helpStringOverride = _crabBaitRecipeQuestGrid.helpStringOverride;
+        //questGridConfig.titleString = _crabBaitRecipeQuestGrid.titleString;
+
+        var gridConfiguration = ScriptableObject.CreateInstance<GridConfiguration>();
+        UnityEngine.Object.DontDestroyOnLoad(gridConfiguration);
+
+        questGridConfig.gridConfiguration = gridConfiguration;
         // Grid configuration
         gridConfiguration.canAddItemsInQuestMode = true;
         gridConfiguration.MainItemSubtype = ItemSubtype.GENERAL | ItemSubtype.MATERIAL;
@@ -155,6 +159,8 @@ public class MaterialBait
         gridConfiguration.name = "Recipe_BaitMaterial";
         gridConfiguration.columns = 2;
         gridConfiguration.rows = 2;
+
+        GameManager.Instance.GameConfigData.gridConfigs[questGridConfig.gridKey] = gridConfiguration;
     }
 
     private static void SetUpRecipeInFactory()
