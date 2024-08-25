@@ -130,9 +130,9 @@ public class MaterialBait
         };
         questGridConfig.createItemsIfEmpty = false;
 
-        questGridConfig.exitPromptOverride = _crabBaitRecipeQuestGrid.exitPromptOverride;
-        questGridConfig.helpStringOverride = _crabBaitRecipeQuestGrid.helpStringOverride;
-        questGridConfig.titleString = _crabBaitRecipeQuestGrid.titleString;
+       // questGridConfig.exitPromptOverride = _crabBaitRecipeQuestGrid.exitPromptOverride;
+        //questGridConfig.helpStringOverride = _crabBaitRecipeQuestGrid.helpStringOverride;
+        //questGridConfig.titleString = _crabBaitRecipeQuestGrid.titleString;
 
         var gridConfiguration = ScriptableObject.CreateInstance<GridConfiguration>();
         questGridConfig.gridConfiguration = gridConfiguration;

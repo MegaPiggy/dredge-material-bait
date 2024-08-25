@@ -82,7 +82,9 @@ public static class BaitAbilityPatches
             GameManager.Instance.UI.ShowNotification(NotificationType.ERROR, "notification.bait-failed");
             return;
         }
-        int num = UnityEngine.Random.Range(GameManager.Instance.GameConfigData.NumFishInBaitBallMin, GameManager.Instance.GameConfigData.NumFishInBaitBallMax);
+
+        // Double it because uh I wanna!
+        int num = 2 * UnityEngine.Random.Range(GameManager.Instance.GameConfigData.NumFishInBaitBallMin, GameManager.Instance.GameConfigData.NumFishInBaitBallMax);
 
         int num2 = 0;
         Stack<HarvestableItemData> stack = new Stack<HarvestableItemData>();
