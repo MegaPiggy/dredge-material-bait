@@ -15,8 +15,7 @@ public static class BaitAbilityPatches
     private static void BaitAbility_Init(BaitAbility __instance)
     {
         // Register our custom bait as bait
-        var materialBait = ItemUtil.GetModdedItemData(MaterialBait.MATERIAL_BAIT_ID) as SpatialItemData;
-        __instance.baitItems.Add(materialBait);
+        __instance.baitItems.Add(MaterialBait.MaterialBaitItemData);
         __instance.RefreshItemCyclingCollection();
     }
 
@@ -25,12 +24,12 @@ public static class BaitAbilityPatches
     public static void PlayerAbilityManager_GetHasDependentItems(PlayerAbilityManager __instance, AbilityData ability)
     {
         // Things are readonly so have to do this rather poorly
+        // This makes the ability actually activate when we have only this bait in our inventory
         if (ability?.name == "bait")
         {
-            var materialBait = ItemUtil.GetModdedItemData(MaterialBait.MATERIAL_BAIT_ID) as SpatialItemData;
-            if (!ability.linkedItems.Contains(materialBait))
+            if (!ability.linkedItems.Contains(MaterialBait.MaterialBaitItemData))
             {
-                ability.linkedItems = ability.linkedItems.Add(materialBait);
+                ability.linkedItems = ability.linkedItems.Add(MaterialBait.MaterialBaitItemData);
             }
         }
     }
@@ -39,7 +38,7 @@ public static class BaitAbilityPatches
     [HarmonyPatch(typeof(BaitAbility), nameof(BaitAbility.DeployBait))]
     public static bool BaitAbility_DeployBait(BaitAbility __instance, SpatialItemInstance baitInstance)
     {
-        if (baitInstance?.id == MaterialBait.MATERIAL_BAIT_ID)
+        if (baitInstance?.id == MaterialBait.MaterialBaitItemData.id)
         {
             // Spawn our custom bait POI
             SpawnCustomBait(__instance, baitInstance);
@@ -56,9 +55,9 @@ public static class BaitAbilityPatches
     [HarmonyPatch(typeof(BaitAbility), nameof(BaitAbility.GetFishForBait))]
     public static bool BaitAbility_GetFishForBait(BaitAbility __instance, SpatialItemData spatialItemData, ref List<FishItemData> __result)
     {
-        if (spatialItemData?.id == MaterialBait.MATERIAL_BAIT_ID)
+        if (spatialItemData?.id == MaterialBait.MaterialBaitItemData.id)
         {
-            // Trick it into thinking there's fish
+            // Trick it into thinking there's fish so it allows us to use our custom bait
             __result = new List<FishItemData>() { new FishItemData() };
 
             return false;
@@ -100,7 +99,7 @@ public static class BaitAbilityPatches
         GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(baitAbility.baitPOIPrefab, position, Quaternion.identity, GameSceneInitializer.Instance.HarvestPoiContainer.transform);
 
         // Modify the gameobject to have dredging particles under the surface not fish
-        var prefab = GameObject.FindObjectsOfType<HarvestPOI>(true).First(x => x.name.Contains("scrap")).transform.Find("MetalScrapParticles(Clone)/Particles").gameObject;
+        var prefab = GameObject.FindObjectsOfType<HarvestPOI>(true).First(x => x.name.Contains("scrap")).transform.Find("MetalScrapParticles(Clone)").gameObject;
         
         gameObject.transform.eulerAngles = new Vector3(0f, GameManager.Instance.Player.BoatModelProxy.DeployPosition.eulerAngles.y, 0f);
         HarvestPOI component = gameObject.GetComponent<HarvestPOI>();
