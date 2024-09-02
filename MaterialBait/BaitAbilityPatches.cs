@@ -74,7 +74,8 @@ public static class BaitAbilityPatches
         SpatialItemData itemData = baitInstance.GetItemData<SpatialItemData>();
         baitPOIDataModel.doesRestock = false;
         // Instead of fish, get dredgable items
-        List<HarvestableItemData> list = ItemUtil.HarvestableItemDataDict.Values
+        List<HarvestableItemData> list = ItemUtil.GetAllItemData()
+            .Where(x => x is HarvestableItemData).Cast<HarvestableItemData>()
             .Where(x => x.harvestableType == HarvestableType.DREDGE && (x.itemSubtype == ItemSubtype.TRINKET || x.itemSubtype == ItemSubtype.MATERIAL))
             .OrderBy(_ => Guid.NewGuid()).ToList();
         if (list.Count == 0)

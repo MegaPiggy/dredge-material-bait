@@ -18,6 +18,8 @@ public class MaterialBait
 
     private static QuestGridConfig _crabBaitRecipeQuestGrid;
 
+    public static GridKey gridKey = EnumUtil.Create<GridKey>("BAIT_MATERIAL_RECIPE");
+
     /// <summary>
     /// This method is run by Winch to initialize your mod
     /// </summary>
@@ -135,7 +137,7 @@ public class MaterialBait
         questGridConfig.createItemsIfEmpty = false;
         questGridConfig.presetGridMode = PresetGridMode.SILHOUETTE;
         questGridConfig.isSaved = true;
-        questGridConfig.gridKey = EnumUtil.Create<GridKey>("BAIT_MATERIAL_RECIPE");
+        questGridConfig.gridKey = gridKey;
         questGridConfig.presetGrid = new SerializableGrid();
         questGridConfig.presetGrid.spatialItems = new List<SpatialItemInstance>
         {
