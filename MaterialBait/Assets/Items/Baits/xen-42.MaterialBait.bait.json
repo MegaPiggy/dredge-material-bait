@@ -12,5 +12,7 @@
   "dimensions": [
     "XX"
   ],
-  "damageMode": "DESTROY"
+  "damageMode": "DESTROY",
+  "abilityMode": "BAIT_MATERIAL",
+  "baitType": "MATERIAL"
 }
