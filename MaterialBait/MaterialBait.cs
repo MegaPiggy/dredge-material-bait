@@ -8,7 +8,6 @@ namespace MaterialBait;
 
 public class MaterialBait
 {
-    public static ItemRecipeData BaitRecipeData { get; private set; }
     public static SpatialItemData MaterialBaitItemData => ItemUtil.GetSpatialItemData("xen-42.MaterialBait.bait");
 
     /// <summary>
