@@ -14,5 +14,7 @@
   ],
   "damageMode": "DESTROY",
   "abilityMode": "BAIT_MATERIAL",
-  "baitType": "MATERIAL"
+  "baitType": "MATERIAL",
+  "numItemsMin": 4,
+  "numItemsMax": 8
 }
