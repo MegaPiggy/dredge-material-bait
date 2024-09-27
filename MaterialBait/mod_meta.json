@@ -2,8 +2,8 @@
   "Author": "xen-42",
   "Name": "Material and Trinket Bait",
   "ModGUID": "xen-42.MaterialBait",
-  "Version": "0.0.1",
+  "Version": "1.0.0",
   "ModAssembly": "MaterialBait.dll",
-  "MinWinchVersion": "0.4.0",
+  "MinWinchVersion": "0.5.0",
   "Entrypoint": "MaterialBait.MaterialBait/Initialize"
 }
