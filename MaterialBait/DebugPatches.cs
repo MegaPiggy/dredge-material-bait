@@ -8,6 +8,7 @@ using Winch.Core;
 
 namespace MaterialBait;
 
+#if DEBUG
 [HarmonyPatch]
 public static class DebugPatches
 {
@@ -247,3 +248,4 @@ public static class DebugPatches
         return false;
     }
 }
+#endif
