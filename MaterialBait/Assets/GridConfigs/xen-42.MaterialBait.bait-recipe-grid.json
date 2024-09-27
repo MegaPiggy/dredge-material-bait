@@ -1,0 +1,10 @@
+﻿{
+    "columns": 2,
+    "rows": 2,
+    "mainItemType": "GENERAL",
+    "mainItemSubtype": [ "GENERAL", "MATERIAL" ],
+    "itemsInThisBelongToPlayer": false,
+    "canAddItemsInQuestMode": true,
+    "hasUnderlay": false,
+    "gridKey": "BAIT_MATERIAL_RECIPE"
+}
