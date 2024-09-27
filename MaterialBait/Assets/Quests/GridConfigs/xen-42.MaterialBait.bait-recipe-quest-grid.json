@@ -1,0 +1,46 @@
+﻿{
+    "titleString": "quest-grid.deliver-materials",
+    "isSaved": true,
+    "allowEquipmentInstallation": true,
+    "allowManualExit": true,
+    "allowStorageAccess": false,
+    "gridConfiguration": "xen-42.MaterialBait.bait-recipe-grid",
+    "gridKey": "BAIT_MATERIAL_RECIPE",
+    "presetGrid": {
+        "spatialItems": [
+            {
+                "id": "bait",
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            {
+                "id": "dark-splash",
+                "x": 1,
+                "y": 0,
+                "z": 0
+            },
+            {
+                "id": "dark-splash",
+                "x": 1,
+                "y": 1,
+                "z": 0
+            }
+        ]
+    },
+    "presetGridMode": "SILHOUETTE",
+    "questGridExitMode": "REVISITABLE",
+    "startingDurabilityProportion": 1.0,
+    "completeConditions": [
+        {
+            "type": "ItemCount",
+            "item": "bait",
+            "count": 1
+        },
+        {
+            "type": "ItemCount",
+            "item": "dark-splash",
+            "count": 2
+        }
+    ]
+}

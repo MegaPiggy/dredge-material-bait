@@ -1,0 +1,9 @@
+﻿{
+    "questGridConfig": "xen-42.MaterialBait.bait-recipe-quest-grid",
+    "itemProduced": "xen-42.MaterialBait.bait",
+    "onRecipeShownDialogueNodeName": "Factory_Item_RecipeShown",
+    "onRecipeBuiltDialogueNodeName": "Factory_Item_Constructed",
+    "quantityProduced": 1,
+    "researchRequired": 1,
+    "cost": 40
+}
